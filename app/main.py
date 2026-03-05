@@ -29,6 +29,7 @@ from app.core.config import settings
 from app.services.followup_engine import generate_draft, days_overdue
 from app.services.email_sender import send_email
 from app.services.gmail_oauth import auth_url, exchange_code, gmail_profile
+from app.services.progress_data import current_progress
 
 app = FastAPI(title="Followup Copilot", version="0.3.0")
 
@@ -41,6 +42,11 @@ def ui():
 @app.get("/progress")
 def progress_ui():
     return FileResponse(Path(__file__).parent / "static" / "progress.html")
+
+
+@app.get("/progress.json")
+def progress_json():
+    return current_progress()
 
 
 def _get_current_user(authorization: str = Header(default=""), db: Session = Depends(get_db)) -> User:
