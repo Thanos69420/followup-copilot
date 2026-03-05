@@ -61,7 +61,25 @@ def _get_current_user(authorization: str = Header(default=""), db: Session = Dep
 
 @app.get("/health")
 def health():
-    return {"ok": True, "version": "0.3.0"}
+    return {"ok": True, "version": "0.3.0", "service": "followup-copilot"}
+
+
+@app.get("/status")
+def status():
+    return {
+        "name": "followup-copilot",
+        "api": "up",
+        "ui": ["/ui", "/progress"],
+        "features": {
+            "auth": True,
+            "invoice_import": True,
+            "drafts": True,
+            "approval": True,
+            "send_audit": True,
+            "gmail_oauth_scaffold": True,
+            "workers": True,
+        },
+    }
 
 
 @app.post("/auth/register", response_model=TokenResponse)

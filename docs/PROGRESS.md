@@ -9,8 +9,15 @@
 
 ## In Progress
 - Gmail OAuth connect flow + provider preference
+- Render deploy stabilization
+
+## Added This Slice
+- `render.yaml` blueprint for Render web service deployment
+- `Makefile` task entrypoints
+- `scripts/smoke_check.py` quick deploy sanity validator
+- `/status` endpoint for lightweight service readiness summary
 
 ## Next
 - End-to-end Gmail send validation
 - Accounting sync connectors
-- Minimal production deploy profile
+- Minimal production deploy profile + deploy log root-cause fix

@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: followup-copilot
+    runtime: docker
+    repo: https://github.com/Thanos69420/followup-copilot
+    branch: main
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: free
+    autoDeploy: true
+    healthCheckPath: /health
+    envVars:
+      - key: JWT_SECRET
+        generateValue: true
+      - key: ACCESS_TOKEN_MINUTES
+        value: "1440"
+      - key: DATABASE_URL
+        value: "sqlite:///./followup.db"
