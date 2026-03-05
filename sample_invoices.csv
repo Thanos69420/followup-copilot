@@ -1,0 +1,5 @@
+client_name,client_email,invoice_id,amount,due_date,last_contact_date,status
+Acme LLC,billing@acme.com,INV-001,1200,2026-02-20,2026-02-18,sent
+Northwind Co,ap@northwind.com,INV-002,4500,2026-02-10,2026-02-01,sent
+Bluebird Studio,ops@bluebird.studio,INV-003,300,2026-03-15,2026-03-01,sent
+Paid Client,payments@paid.com,INV-004,800,2026-02-01,2026-02-02,paid
