@@ -30,6 +30,8 @@ from app.services.followup_engine import generate_draft, days_overdue
 from app.services.email_sender import send_email
 from app.services.gmail_oauth import auth_url, exchange_code, gmail_profile
 from app.services.progress_data import current_progress
+from app.services.demo_seed import seed_demo_invoices
+from app.services.analytics import org_metrics
 
 app = FastAPI(title="Followup Copilot", version="0.3.0")
 
@@ -207,6 +209,17 @@ async def import_invoices(
 
     db.commit()
     return {"imported": imported}
+
+
+@app.post("/demo/seed")
+def demo_seed(db: Session = Depends(get_db), user: User = Depends(_get_current_user)):
+    created = seed_demo_invoices(db, user.organization_id)
+    return {"created": created}
+
+
+@app.get("/analytics/summary")
+def analytics_summary(db: Session = Depends(get_db), user: User = Depends(_get_current_user)):
+    return org_metrics(db, user.organization_id)
 
 
 @app.get("/invoices")

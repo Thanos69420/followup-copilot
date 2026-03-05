@@ -17,7 +17,12 @@
 - `scripts/smoke_check.py` quick deploy sanity validator
 - `/status` endpoint for lightweight service readiness summary
 
+## Added This Slice
+- Demo data endpoint (`POST /demo/seed`)
+- Analytics summary endpoint (`GET /analytics/summary`)
+- UI summary panel + one-click demo loader
+
 ## Next
 - End-to-end Gmail send validation
 - Accounting sync connectors
-- Minimal production deploy profile + deploy log root-cause fix
+- Team role permissions + usage metering

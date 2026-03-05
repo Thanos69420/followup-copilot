@@ -20,12 +20,16 @@
     <button onclick="loadDrafts()">Load Drafts</button>
   </div>
   <div class="row">
+    <button onclick="seedDemo()">Seed Demo Data</button>
     <button onclick="generate()">Generate Overdue Drafts</button>
     <button onclick="loadEvents()">Load Send Events</button>
     <button onclick="gmailConnect()">Connect Gmail</button>
     <button onclick="gmailStatus()">Gmail Status</button>
   </div>
   <pre id="gmail" class="small"></pre>
+
+  <h3>Summary</h3>
+  <pre id="summary" class="small"></pre>
 
   <h3>Drafts</h3>
   <div id="drafts"></div>
@@ -41,8 +45,20 @@ const api = (path, opts={}) => {
   return fetch(path, Object.assign({}, opts, {headers:h})).then(r=>r.json());
 }
 
+async function loadSummary(){
+  const s = await api('/analytics/summary');
+  document.getElementById('summary').textContent = JSON.stringify(s, null, 2);
+}
+
+async function seedDemo(){
+  await api('/demo/seed', {method:'POST'});
+  await loadSummary();
+  await loadDrafts();
+}
+
 async function generate(){
   await api('/followups/generate?days=3', {method:'POST'});
+  await loadSummary();
   await loadDrafts();
 }
 
@@ -73,6 +89,7 @@ async function loadDrafts(){
     if (action === 'approve') await api('/followups/approve', {method:'POST', body: JSON.stringify({draft_id:id, approved:true})});
     if (action === 'unapprove') await api('/followups/approve', {method:'POST', body: JSON.stringify({draft_id:id, approved:false})});
     if (action === 'send') await api('/followups/send', {method:'POST', body: JSON.stringify({draft_id:id})});
+    await loadSummary();
     await loadDrafts();
   });
 }

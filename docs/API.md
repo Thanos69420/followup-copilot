@@ -3,6 +3,11 @@
 ## UI
 - `GET /ui` lightweight approval UI (token entered manually)
 - `GET /progress` visual sprint progress board
+- `GET /progress.json` machine-readable progress feed
+
+## Demo + Analytics
+- `POST /demo/seed` adds demo invoices for the logged-in org
+- `GET /analytics/summary` returns high-level dashboard metrics
 
 ## Gmail OAuth
 - `GET /auth/gmail/start` (bearer auth required; returns connect URL)
